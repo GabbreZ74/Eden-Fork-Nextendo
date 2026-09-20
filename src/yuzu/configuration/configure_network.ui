@@ -35,7 +35,42 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0" colspan="2">
+        <item row="2" column="1">
+         <widget class="QComboBox" name="network_profile">
+          <item>
+           <property name="text">
+            <string>Eden</string>
+           </property>
+           <property name="userData">
+            <string>eden</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Nextendo</string>
+           </property>
+           <property name="userData">
+            <string>nextendo</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ldn_mitm</string>
+           </property>
+           <property name="userData">
+            <string>ldn_mitm</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_network_profile">
+          <property name="text">
+           <string>Network Profile</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0" colspan="2">
          <widget class="QCheckBox" name="airplane_mode">
           <property name="text">
            <string>Enable Airplane Mode</string>

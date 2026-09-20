@@ -5,6 +5,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
+#include <optional>
+#include <string>
+
+#include "core/internal_network/network.h"
 
 #include "core/hle/service/service.h"
 
@@ -13,6 +17,12 @@ class System;
 }
 
 namespace Service::Sockets {
+
+void SetLastHostForIp(const std::string& ip, const std::string& host);
+std::string GetLastHostForIp(const std::string& ip);
+
+void SetLastIpForPort(u16 port, Network::IPv4Address ip);
+std::optional<Network::IPv4Address> GetLastIpForPort(u16 port);
 
 class SFDNSRES final : public ServiceFramework<SFDNSRES> {
 public:

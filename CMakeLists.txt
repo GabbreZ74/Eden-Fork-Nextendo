@@ -40,6 +40,10 @@ elseif (NETBSD)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -L${CMAKE_SYSROOT}/usr/X11R7/lib")
 endif()
 
+if (LINUX)
+    link_libraries(va X11)
+endif()
+
 # NetBSD: Fun for the whole family!
 if (NETBSD)
     set(ENV{PKG_CONFIG_PATH} "${PKG_CONFIG_PATH}:${CMAKE_SYSROOT}/usr/pkg/lib/ffmpeg7/pkgconfig")

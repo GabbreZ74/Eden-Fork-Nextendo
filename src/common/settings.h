@@ -936,9 +936,11 @@ struct Values {
     Setting<bool> censor_username{linkage, true, "censor_username", Category::Miscellaneous};
     Setting<bool> first_launch{linkage, true, "first_launch", Category::Miscellaneous};
 
-    // Network
+    // Network (modified to fork nextendo)
     Setting<std::string> network_interface{linkage, std::string(), "network_interface",
-                                           Category::Network};
+                                        Category::Network};
+    Setting<std::string> network_profile{linkage, "eden", "network_profile",
+                                        Category::Network};
     SwitchableSetting<bool> airplane_mode{linkage, false, "airplane_mode", Category::Network};
 
     // WebService

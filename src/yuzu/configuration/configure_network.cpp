@@ -14,6 +14,9 @@
 ConfigureNetwork::ConfigureNetwork(const Core::System& system_, QWidget* parent)
     : QWidget(parent), ui(std::make_unique<Ui::ConfigureNetwork>()), system{system_} {
     ui->setupUi(this);
+    ui->network_profile->setItemData(0, QStringLiteral("eden"));
+    ui->network_profile->setItemData(1, QStringLiteral("nextendo"));
+    ui->network_profile->setItemData(2, QStringLiteral("ldn_mitm"));
     for (const auto& iface : Network::GetAvailableNetworkInterfaces())
         ui->network_interface->addItem(QString::fromStdString(iface.name));
     this->SetConfiguration();
@@ -23,6 +26,8 @@ ConfigureNetwork::~ConfigureNetwork() = default;
 
 void ConfigureNetwork::ApplyConfiguration() {
     Settings::values.network_interface = ui->network_interface->currentText().toStdString();
+    Settings::values.network_profile =
+        ui->network_profile->currentData().toString().toStdString();
     Settings::values.airplane_mode = ui->airplane_mode->isChecked();
 }
 
@@ -40,9 +45,22 @@ void ConfigureNetwork::RetranslateUI() {
 
 void ConfigureNetwork::SetConfiguration() {
     const bool runtime_lock = !system.IsPoweredOn();
-    auto const network_interface = Settings::values.network_interface.GetValue();
-    auto const airplane_mode = Settings::values.airplane_mode.GetValue();
+    const auto network_interface = Settings::values.network_interface.GetValue();
+    const auto network_profile = Settings::values.network_profile.GetValue();
+    const auto airplane_mode = Settings::values.airplane_mode.GetValue();
+
     ui->network_interface->setCurrentText(QString::fromStdString(network_interface));
+
+    const int profile_index =
+        ui->network_profile->findData(QString::fromStdString(network_profile));
+
+    if (profile_index >= 0) {
+        ui->network_profile->setCurrentIndex(profile_index);
+    } else {
+        ui->network_profile->setCurrentIndex(0);
+    }
+
     ui->network_interface->setEnabled(runtime_lock);
+    ui->network_profile->setEnabled(runtime_lock);
     ui->airplane_mode->setChecked(airplane_mode);
 }
